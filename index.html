@@ -1,0 +1,20 @@
+    [wInput, hInput, delivCheck, odorCheck, condCheck, perfCheck].forEach(el => el.addEventListener('input', calculate));
+    typeRadios.forEach(r => r.addEventListener('change', calculate));
+    calculate();
+
+    function sendOrder() {
+      const w = wInput.value;
+      const h = hInput.value;
+      const area = resArea.innerText;
+      const total = resTotal.innerText;
+      const delivery = delivCheck.checked ? 'Да (+350₽)' : 'Нет (привезу сам)';
+      const odor = odorCheck.checked ? 'Да' : 'Нет';
+      const cond = condCheck.checked ? 'Да' : 'Нет';
+      const perf = perfCheck.checked ? 'Да' : 'Нет';
+
+      const msg = Здравствуйте! Хочу заказать стирку ковра.%0AРазмеры: ${w}м x ${h}м (${area} м²)%0AДоставка (вывоз и привоз): ${delivery}%0AУдаление запаха: ${odor}%0AКондиционер: ${cond}%0AПарфюм: ${perf}%0AИтоговая стоимость: ${total} ₽;
+      window.open(https://wa.me/79956608380?text=${msg}, '_blank');
+    }
+  </script>
+</body>
+</html>
