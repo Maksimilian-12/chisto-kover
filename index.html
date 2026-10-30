@@ -186,17 +186,21 @@
           </div>
         </div>
 
-        <!-- Итог -->
+        <!-- Итог и две кнопки отправки расчета -->
         <div class="pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
           <div>
             <div class="text-xs text-slate-500">Расчетная площадь: <span id="res-area" class="font-bold text-slate-700">6.0</span> м²</div>
             <div class="text-3xl font-black text-slate-900 mt-1"><span id="res-total">2 450</span> ₽</div>
             <div id="res-min-notice" class="hidden text-xs text-amber-600 font-semibold mt-1">Применена минимальная стоимость заказа (1 500 ₽)</div>
           </div>
-          <!-- Кнопка MAX в калькуляторе -->
-          <button onclick="sendOrder()" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-3.5 rounded-xl transition flex items-center justify-center gap-2 shadow-md">
-            <i class="fa-solid fa-comment-dots text-lg"></i> Отправить расчет в MAX
-          </button>
+          <div class="flex flex-col sm:flex-row gap-2.5 w-full sm:w-auto">
+            <button onclick="sendOrder('max')" class="bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-5 py-3.5 rounded-xl transition flex items-center justify-center gap-2 shadow-md text-sm">
+              <i class="fa-solid fa-comment-dots text-base"></i> Отправить в MAX
+            </button>
+            <button onclick="sendOrder('tg')" class="bg-sky-500 hover:bg-sky-600 text-white font-bold px-5 py-3.5 rounded-xl transition flex items-center justify-center gap-2 shadow-md text-sm">
+              <i class="fa-brands fa-telegram text-base"></i> В Telegram
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -258,16 +262,14 @@
           </p>
         </div>
         <div class="flex gap-3">
-          <!-- Кнопка MAX в блоке контактов -->
-          <a href="https://max.ru/u/f9LHodD0cOI5alyfyV261y-zqi_V233tMSB2_7FF_ACm_rmVWgDtuWL-m6s" target="_blank" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2.5 rounded-lg text-sm font-semibold transition">
+          <a href="https://max.ru/u/f9LHodD0cOI5alyfyV261y-zqi_V233tMSB2_7FF_ACm_rmVWgDtuWL-m6s" target="_blank" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2.5 rounded-lg text-sm font-semibold transition shadow-sm">
             <i class="fa-solid fa-comment-dots text-base"></i> MAX
           </a>
-          <a href="https://t.me/+79956608380" target="_blank" class="inline-flex items-center gap-2 bg-sky-500 hover:bg-sky-600 text-white px-4 py-2.5 rounded-lg text-sm font-semibold transition">
+          <a href="https://t.me/+79956608380" target="_blank" class="inline-flex items-center gap-2 bg-sky-500 hover:bg-sky-600 text-white px-4 py-2.5 rounded-lg text-sm font-semibold transition shadow-sm">
             <i class="fa-brands fa-telegram text-base"></i> Telegram
           </a>
         </div>
       </div>
-      <!-- Интерактивная карта Яндекс -->
       <div class="h-64 sm:h-80 bg-slate-100 rounded-2xl overflow-hidden border border-slate-200">
         <iframe src="https://yandex.ru/map-widget/v1/?text=%D0%A0%D0%B5%D0%B2%D0%B4%D0%B0%20%D1%83%D0%BB%D0%B8%D1%86%D0%B0%20%D0%A7%D0%B5%D1%85%D0%BE%D0%B2%D0%B0%2040&z=16" width="100%" height="100%" frameborder="0" allowfullscreen="true"></iframe>
       </div>
@@ -290,6 +292,8 @@
     const resArea = document.getElementById('res-area');
     const resTotal = document.getElementById('res-total');
     const minNotice = document.getElementById('res-min-notice');
+
+    const MAX_PROFILE = "https://max.ru/u/f9LHodD0cOI5alyfyV261y-zqi_V233tMSB2_7FF_ACm_rmVWgDtuWL-m6s";
 
     function calculate() {
       const w = parseFloat(wInput.value) || 0;
@@ -325,7 +329,7 @@
     typeRadios.forEach(r => r.addEventListener('change', calculate));
     calculate();
 
-    function sendOrder() {
+    function sendOrder(messenger) {
       const w = wInput.value;
       const h = hInput.value;
       const area = resArea.innerText;
@@ -336,9 +340,12 @@
       const perf = perfCheck.checked ? 'Да' : 'Нет';
 
       const msg = `Здравствуйте! Хочу заказать стирку ковра.%0AРазмеры: ${w}м x ${h}м (${area} м²)%0AДоставка (вывоз и привоз): ${delivery}%0AУдаление запаха: ${odor}%0AКондиционер: ${cond}%0AПарфюм: ${perf}%0AИтоговая стоимость: ${total} ₽`;
-      
-      // Открытие мессенджера MAX с готовым расчетом
-      window.open(`https://max.ru/u/f9LHodD0cOI5alyfyV261y-zqi_V233tMSB2_7FF_ACm_rmVWgDtuWL-m6s?text=${msg}`, '_blank');
+
+      if (messenger === 'tg') {
+        window.open(`https://t.me/+79956608380?text=${msg}`, '_blank');
+      } else {
+        window.open(`${MAX_PROFILE}?text=${msg}`, '_blank');
+      }
     }
   </script>
 </body>
