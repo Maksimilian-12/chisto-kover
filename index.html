@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Чисто.Ковер — Профессиональная стирка ковров в Ревде</title>
   <meta name="description" content="Цеховая стирка и сушка ковров в Ревде. Удаление пятен, запахов, бережная сушка в камере. Забор и доставка.">
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🫧</text></svg>">
   <script src="https://cdn.tailwindcss.com"></script>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -127,4 +128,218 @@
           </div>
           <div>
             <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Длина (метры)</label>
-            <input type="
+            <input type="number" id="calc-h" value="3.0" step="0.1" min="0.5" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 font-semibold text-slate-800 focus:outline-none focus:border-cyan-500">
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Тип ковра и ворса</label>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+            <label class="flex items-center gap-3 p-3.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:border-cyan-400 transition">
+              <input type="radio" name="calc-type" value="350" checked class="w-4 h-4 text-cyan-600">
+              <div>
+                <span class="block text-sm font-bold text-slate-800">Синтетика / Советская шерсть</span>
+                <span class="text-xs text-slate-500">350 ₽ за м²</span>
+              </div>
+            </label>
+            <label class="flex items-center gap-3 p-3.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:border-cyan-400 transition">
+              <input type="radio" name="calc-type" value="450" class="w-4 h-4 text-cyan-600">
+              <div>
+                <span class="block text-sm font-bold text-slate-800">Шегги / Натуральный / Длинный ворс</span>
+                <span class="text-xs text-slate-500">450 ₽ за м²</span>
+              </div>
+            </label>
+          </div>
+        </div>
+
+        <div class="mb-8">
+          <label class="block text-xs font-bold text-slate-700 uppercase tracking-wider mb-2">Дополнительные опции</label>
+          <div class="space-y-2.5">
+            <label class="flex items-center justify-between p-3.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:border-cyan-400 transition">
+              <div class="flex items-center gap-3">
+                <input type="checkbox" id="calc-delivery" checked class="w-4 h-4 text-cyan-600 rounded">
+                <span class="text-sm font-medium text-slate-700">Вывоз и доставка обратно до двери</span>
+              </div>
+              <span class="text-sm font-bold text-slate-900">+350 ₽</span>
+            </label>
+            <label class="flex items-center justify-between p-3.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:border-cyan-400 transition">
+              <div class="flex items-center gap-3">
+                <input type="checkbox" id="calc-odor" class="w-4 h-4 text-cyan-600 rounded">
+                <span class="text-sm font-medium text-slate-700">Выведение запахов (урина животных, сырость, гарь)</span>
+              </div>
+              <span class="text-sm font-bold text-slate-900">+500 ₽</span>
+            </label>
+            <label class="flex items-center justify-between p-3.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:border-cyan-400 transition">
+              <div class="flex items-center gap-3">
+                <input type="checkbox" id="calc-conditioner" class="w-4 h-4 text-cyan-600 rounded">
+                <span class="text-sm font-medium text-slate-700">Ополаскивание смягчающим кондиционером</span>
+              </div>
+              <span class="text-sm font-bold text-slate-900">+300 ₽</span>
+            </label>
+            <label class="flex items-center justify-between p-3.5 bg-white border border-slate-200 rounded-xl cursor-pointer hover:border-cyan-400 transition">
+              <div class="flex items-center gap-3">
+                <input type="checkbox" id="calc-perfume" class="w-4 h-4 text-cyan-600 rounded">
+                <span class="text-sm font-medium text-slate-700">Ароматизация ворса гипоаллергенным парфюмом</span>
+              </div>
+              <span class="text-sm font-bold text-slate-900">+200 ₽</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Итог -->
+        <div class="pt-6 border-t border-slate-200 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div>
+            <div class="text-xs text-slate-500">Расчетная площадь: <span id="res-area" class="font-bold text-slate-700">6.0</span> м²</div>
+            <div class="text-3xl font-black text-slate-900 mt-1"><span id="res-total">2 450</span> ₽</div>
+            <div id="res-min-notice" class="hidden text-xs text-amber-600 font-semibold mt-1">Применена минимальная стоимость заказа (1 500 ₽)</div>
+          </div>
+          <!-- Кнопка MAX в калькуляторе -->
+          <button onclick="sendOrder()" class="w-full sm:w-auto bg-indigo-600 hover:bg-indigo-700 text-white font-bold px-6 py-3.5 rounded-xl transition flex items-center justify-center gap-2 shadow-md">
+            <i class="fa-solid fa-comment-dots text-lg"></i> Отправить расчет в MAX
+          </button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Преимущества технологии -->
+  <section id="advantages" class="py-16 bg-slate-50">
+    <div class="max-w-6xl mx-auto px-4">
+      <div class="text-center max-w-xl mx-auto mb-12">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900">Этапы цеховой обработки</h2>
+        <p class="text-slate-500 text-sm mt-2">Каждый ковер проходит 5 обязательных ступеней очистки</p>
+      </div>
+      <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div class="bg-white p-6 rounded-xl border border-slate-200">
+          <div class="w-10 h-10 rounded-lg bg-cyan-100 text-cyan-700 font-bold flex items-center justify-center mb-4">1</div>
+          <h3 class="font-bold text-slate-900 mb-2">Глубокое обеспыливание</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Выбивание пыли, песка и сухих загрязнений из основания ковра виброоборудованием.</p>
+        </div>
+        <div class="bg-white p-6 rounded-xl border border-slate-200">
+          <div class="w-10 h-10 rounded-lg bg-cyan-100 text-cyan-700 font-bold flex items-center justify-center mb-4">2</div>
+          <h3 class="font-bold text-slate-900 mb-2">Роторная стирка</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Мягкие щетки равномерно распределяют шампунь, очищая ворс по всей глубине без заломов.</p>
+        </div>
+        <div class="bg-white p-6 rounded-xl border border-slate-200">
+          <div class="w-10 h-10 rounded-lg bg-cyan-100 text-cyan-700 font-bold flex items-center justify-center mb-4">3</div>
+          <h3 class="font-bold text-slate-900 mb-2">Отжим в центрифуге</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Ковер скручивается в рулон, промывается чистой водой и отжимается на 95% за 3 минуты.</p>
+        </div>
+        <div class="bg-white p-6 rounded-xl border border-slate-200">
+          <div class="w-10 h-10 rounded-lg bg-cyan-100 text-cyan-700 font-bold flex items-center justify-center mb-4">4</div>
+          <h3 class="font-bold text-slate-900 mb-2">Сушильная камера</h3>
+          <p class="text-xs text-slate-600 leading-relaxed">Сушка с осушителями воздуха и обдувом исключает прение, затхлость и размножение бактерий.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Контакты -->
+  <section id="contacts" class="py-16 bg-white border-t border-slate-200">
+    <div class="max-w-6xl mx-auto px-4 grid md:grid-cols-2 gap-8 items-center">
+      <div>
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-slate-900 mb-4">Контакты цеха</h2>
+        <div class="space-y-4 text-sm text-slate-600 mb-6">
+          <p class="flex items-center gap-3">
+            <i class="fa-solid fa-location-dot text-cyan-600 text-base w-4"></i>
+            <span><strong>Адрес:</strong> г. Ревда, ул. Чехова, д. 40</span>
+          </p>
+          <p class="flex items-center gap-3">
+            <i class="fa-solid fa-clock text-cyan-600 text-base w-4"></i>
+            <span><strong>График работы:</strong> Пн – Пт: 10:00 – 17:00</span>
+          </p>
+          <p class="flex items-center gap-3">
+            <i class="fa-solid fa-phone text-cyan-600 text-base w-4"></i>
+            <span><strong>Телефон:</strong> <a href="tel:+79956608380" class="hover:text-cyan-600 font-semibold">+7 (995) 660-83-80</a></span>
+          </p>
+          <p class="flex items-center gap-3">
+            <i class="fa-solid fa-envelope text-cyan-600 text-base w-4"></i>
+            <span><strong>Email:</strong> chisto_kover@internet.ru</span>
+          </p>
+        </div>
+        <div class="flex gap-3">
+          <!-- Кнопка MAX в блоке контактов -->
+          <a href="https://max.ru" target="_blank" class="inline-flex items-center gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2.5 rounded-lg text-sm font-semibold transition">
+            <i class="fa-solid fa-comment-dots text-base"></i> MAX
+          </a>
+          <a href="https://t.me/+79956608380" target="_blank" class="inline-flex items-center gap-2 bg-sky-500 hover:bg-sky-600 text-white px-4 py-2.5 rounded-lg text-sm font-semibold transition">
+            <i class="fa-brands fa-telegram text-base"></i> Telegram
+          </a>
+        </div>
+      </div>
+      <!-- Интерактивная карта Яндекс -->
+      <div class="h-64 sm:h-80 bg-slate-100 rounded-2xl overflow-hidden border border-slate-200">
+        <iframe src="https://yandex.ru/map-widget/v1/?text=%D0%A0%D0%B5%D0%B2%D0%B4%D0%B0%20%D1%83%D0%BB%D0%B8%D1%86%D0%B0%20%D0%A7%D0%B5%D1%85%D0%BE%D0%B2%D0%B0%2040&z=16" width="100%" height="100%" frameborder="0" allowfullscreen="true"></iframe>
+      </div>
+    </div>
+  </section>
+
+  <!-- Подвал -->
+  <footer class="py-6 bg-slate-900 text-slate-400 text-xs text-center border-t border-slate-800">
+    <p>© Чисто.Ковер — Специализированный цех стирки ковровых изделий в Ревде.</p>
+  </footer>
+
+  <script>
+    const wInput = document.getElementById('calc-w');
+    const hInput = document.getElementById('calc-h');
+    const typeRadios = document.getElementsByName('calc-type');
+    const delivCheck = document.getElementById('calc-delivery');
+    const odorCheck = document.getElementById('calc-odor');
+    const condCheck = document.getElementById('calc-conditioner');
+    const perfCheck = document.getElementById('calc-perfume');
+    const resArea = document.getElementById('res-area');
+    const resTotal = document.getElementById('res-total');
+    const minNotice = document.getElementById('res-min-notice');
+
+    function calculate() {
+      const w = parseFloat(wInput.value) || 0;
+      const h = parseFloat(hInput.value) || 0;
+      const area = Math.round(w * h * 100) / 100;
+      resArea.innerText = area;
+
+      let pricePerMeter = 350;
+      for (const r of typeRadios) {
+        if (r.checked) pricePerMeter = parseFloat(r.value);
+      }
+
+      let washCost = area * pricePerMeter;
+      let isMinApplied = false;
+
+      if (washCost < 1500 && area > 0) {
+        washCost = 1500;
+        isMinApplied = true;
+      }
+
+      let extra = 0;
+      if (delivCheck.checked) extra += 350;
+      if (odorCheck.checked) extra += 500;
+      if (condCheck.checked) extra += 300;
+      if (perfCheck.checked) extra += 200;
+
+      const total = washCost + extra;
+      resTotal.innerText = Math.round(total).toLocaleString('ru-RU');
+      minNotice.classList.toggle('hidden', !isMinApplied);
+    }
+
+    [wInput, hInput, delivCheck, odorCheck, condCheck, perfCheck].forEach(el => el.addEventListener('input', calculate));
+    typeRadios.forEach(r => r.addEventListener('change', calculate));
+    calculate();
+
+    function sendOrder() {
+      const w = wInput.value;
+      const h = hInput.value;
+      const area = resArea.innerText;
+      const total = resTotal.innerText;
+      const delivery = delivCheck.checked ? 'Да (+350₽)' : 'Нет (привезу сам)';
+      const odor = odorCheck.checked ? 'Да' : 'Нет';
+      const cond = condCheck.checked ? 'Да' : 'Нет';
+      const perf = perfCheck.checked ? 'Да' : 'Нет';
+
+      const msg = `Здравствуйте! Хочу заказать стирку ковра.%0AРазмеры: ${w}м x ${h}м (${area} м²)%0AДоставка (вывоз и привоз): ${delivery}%0AУдаление запаха: ${odor}%0AКондиционер: ${cond}%0AПарфюм: ${perf}%0AИтоговая стоимость: ${total} ₽`;
+      
+      // Открытие мессенджера MAX с готовым расчетом
+      window.open(`https://max.ru?text=${msg}`, '_blank');
+    }
+  </script>
+</body>
+</html>
